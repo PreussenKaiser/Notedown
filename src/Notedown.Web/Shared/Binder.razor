@@ -1,0 +1,29 @@
+﻿@using System.ComponentModel
+
+@implements IDisposable
+
+@this.ChildContent
+
+@code
+{
+    [Parameter]
+    public required RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public required INotifyPropertyChanged BindingContext { get; init; }
+
+    protected override void OnInitialized()
+    {
+        this.BindingContext.PropertyChanged += this.OnPropertyChangedHandler;
+    }
+
+    private async void OnPropertyChangedHandler(object? sender, PropertyChangedEventArgs args)
+    {
+        await this.InvokeAsync(this.StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        this.BindingContext.PropertyChanged -= this.OnPropertyChangedHandler;
+    }
+}

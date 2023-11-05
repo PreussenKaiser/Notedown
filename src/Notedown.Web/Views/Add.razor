@@ -1,0 +1,14 @@
+﻿@page "/Add"
+
+@using Microsoft.AspNetCore.Components.Forms
+
+@inject AddViewModel ViewModel
+
+<Binder BindingContext="this.ViewModel">
+    <EditForm Model="this.ViewModel.Note" OnSubmit="this.ViewModel.AddNote">
+        <label>Title</label>
+        <InputText @bind-Value="this.ViewModel.Note.Title" />
+
+        <button type="submit">Save</button>
+    </EditForm>
+</Binder>
